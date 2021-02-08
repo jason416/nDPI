@@ -45,7 +45,7 @@ ssize_t n_ipdef_proc_read(struct file *file, char __user *buf,
 	patricia_tree_t *pt;
 	prefix_t *px;
 	patricia_node_t *Xstack[PATRICIA_MAXBITS+1], **Xsp, *node;
-	char lbuf[512];
+	static char lbuf[512];
 	char ibuf[64];
 	int l,bp;
 	loff_t cpos;

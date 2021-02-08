@@ -66,7 +66,8 @@ generic_proc_write(struct ndpi_net *n, const char __user *buffer,
 		     int (*parse_line)(struct ndpi_net *n,char *cmd),
 		     size_t cmd_size,write_buf_id_t id)
 {
-	char c,buf[1024+1];
+	char c;
+	static char buf[1024+1];
 	struct write_proc_cmd *w_buf;
 	int pos,i,l,r,skip;
 

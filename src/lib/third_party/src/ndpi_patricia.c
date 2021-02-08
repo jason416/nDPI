@@ -925,7 +925,11 @@ prefix_t * ndpi_ascii2prefix (int family, char *string)
 #if defined(PATRICIA_IPV6)
   struct in6_addr sin6;
 #endif /* PATRICIA_IPV6 */ 
+#ifndef __KERNEL__
   char save[MAXLINE];
+#else
+  static char save[MAXLINE];
+#endif
 
   if(string == NULL)
     return (NULL);

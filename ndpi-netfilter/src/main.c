@@ -2796,6 +2796,7 @@ static int __init ndpi_mt_init(void)
 	set_ndpi_malloc(malloc_wrapper);
 	set_ndpi_free(free_wrapper);
 
+#if 0
 	if(request_module("nf_conntrack") < 0) {
 		pr_err("xt_ndpi: nf_conntrack required!\n");
 		return -EOPNOTSUPP;
@@ -2809,6 +2810,7 @@ static int __init ndpi_mt_init(void)
 		pr_err("xt_ndpi: ip6_tables required!\n");
 		return -EOPNOTSUPP;
 	}
+#endif
 #endif
 #ifdef NF_CT_CUSTOM
 	ret = nf_ct_extend_custom_register(&ndpi_extend,0x4e445049); /* "NDPI" in hex */

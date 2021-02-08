@@ -259,7 +259,12 @@ static void processCertificateElements(struct ndpi_detection_module_struct *ndpi
 				       u_int16_t p_offset, u_int16_t certificate_len) {
   struct ndpi_packet_struct *packet = &flow->packet;
   u_int num_found = 0, i;
+#ifndef __KERNEL__
   char buffer[64] = { '\0' }, rdnSeqBuf[2048] = { '\0' };
+#else
+  char buffer[64] = { '\0' };
+  static char rdnSeqBuf[2048] = { '\0' };
+#endif
   u_int rdn_len = 0;
 
 #ifdef DEBUG_TLS
@@ -910,10 +915,18 @@ struct ja3_info {
 int processClientServerHello(struct ndpi_detection_module_struct *ndpi_struct,
 			     struct ndpi_flow_struct *flow, uint32_t quic_version) {
   struct ndpi_packet_struct *packet = &flow->packet;
+#ifndef __KERNEL__
   struct ja3_info ja3;
+#else
+  static struct ja3_info ja3;
+#endif
   u_int8_t invalid_ja3 = 0;
   u_int16_t tls_version, ja3_str_len;
+#ifndef __KERNEL__
   char ja3_str[JA3_STR_LEN];
+#else
+  static char ja3_str[JA3_STR_LEN];
+#endif
   ndpi_MD5_CTX ctx;
   u_char md5_hash[16];
   int i;
